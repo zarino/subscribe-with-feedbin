@@ -1,9 +1,20 @@
-chrome.extension.sendMessage({}, function(response) {
-  var readyStateCheckInterval = setInterval(function() {
-    if (document.readyState === "complete") {
-      clearInterval(readyStateCheckInterval);
-      // This part of the script triggers when page is done loading
-      console.log("Hello. This message was sent from scripts/inject.js");
-    }
-  }, 10);
-});
+var feedNodes = document.querySelectorAll('link[type="application/atom+xml"], link[type="application/rss+xml"]')
+
+if(feedNodes.length){
+  console.log('found', feedNodes.length, 'feed' + (feedNodes.length==1?'':'s'))
+
+  var feeds = []
+  for(var i=0; i<feedNodes.length; i++){
+    feeds.push({
+      title: feedNodes[i].title,
+      type: feedNodes[i].type,
+      url: feedNodes[i].href
+    })
+  }
+
+  console.log('telling background.js...')
+  chrome.extension.sendMessage(feeds, function(response){
+    console.log('background.js responded:', response)
+  })
+
+}
