@@ -19,7 +19,7 @@
     "default_title": "Subscribe to feeds",
     "default_popup": "page_action.html"
   },
-  "permissions": [ "tabs", "https://*/*", "http://*/*" ],
+  "permissions": [ "tabs", "https://*/*", "http://*/*", "storage" ],
   "content_scripts": [{
     "matches": [ "http://*/*", "https://*/*" ],
     "js": [ "inject.js" ]
