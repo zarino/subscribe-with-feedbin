@@ -16,7 +16,7 @@
   "options_page": "options.html",
   "page_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "page action demo",
+    "default_title": "Subscribe to feeds",
     "default_popup": "page_action.html"
   },
   "permissions": [ "tabs", "https://*/*", "http://*/*" ],

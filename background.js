@@ -1,9 +1,17 @@
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
-  // [request] here is a list of feed objects, sent by inject.js
-  if(request.length){
+chrome.extension.onMessage.addListener(function(message, sender, sendResponse){
+  if(message.type == "found feeds"){
+    console.log('background.js: received "found feeds" message.')
+    console.log('background.js: sender =', sender)
+    console.log('background.js: Showing pageAction icon...')
     chrome.pageAction.show(sender.tab.id)
-    // We probably want to save the list to local storage,
-    // so page_action.js can load it when icon is clicked
+    if(message.feeds.length == 1){
+      var title = 'Subscribe to “' + message.feeds[0].title + '”'
+    } else {
+      var title = 'Subscribe to ' + message.feeds.length + ' feeds'
+    }
+    chrome.pageAction.setTitle({
+      tabId: sender.tab.id,
+      title: title
+    })
   }
-  sendResponse("Ok, thanks!")
 })
