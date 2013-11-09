@@ -1,7 +1,5 @@
-
 // Checks the given email and password are valid
-// Feedbin credentials. Returns a jQuery deferred object,
-// onto which you can chain .done() and .fail() callbacks.
+// Feedbin credentials.
 var verifyCredentials = function(email, password){
   var dfd = $.Deferred()
   var options = {
@@ -21,6 +19,9 @@ var verifyCredentials = function(email, password){
   return dfd.promise()
 }
 
+// Saves an email and password to local storage,
+// for page_action.js to use when POSTing to the
+// Feedbin API.
 var saveCredentials = function(email, password){
   var dfd = $.Deferred()
   chrome.storage.local.set({
@@ -34,6 +35,8 @@ var saveCredentials = function(email, password){
   return dfd.promise()
 }
 
+// Loads an email and password (or null and null if
+// no details have been saved) from local storage.
 var loadCredentials = function(){
   var dfd = $.Deferred()
   chrome.storage.local.get('credentials', function(result){
@@ -46,6 +49,7 @@ var loadCredentials = function(){
   return dfd.promise()
 }
 
+// Removes saved email and password from local storage.
 var clearCredentials = function(){
   var dfd = $.Deferred()
   chrome.storage.local.remove('credentials', dfd.resolve)
@@ -54,6 +58,8 @@ var clearCredentials = function(){
 
 $(function(){
 
+  // If the user has previously entered an email and password
+  // show it in the input boxes, and disable the form.
   loadCredentials().done(function(email, password){
     if(email && password){
       $('#email').val(email).attr('disabled', true)
@@ -65,6 +71,8 @@ $(function(){
     $('header').append('<div class="alert alert-danger"><strong>Oh dear!</strong> Your login details could not be retrieved from local storage. Try reloading the page?</div>')
   })
 
+  // A new email and password have been submitted.
+  // Check they are valid, then save them if so.
   $('form').on('submit', function(e){
     e.preventDefault()
     $('.alert').remove()
@@ -89,6 +97,7 @@ $(function(){
     })
   })
 
+  // User wants to clear their saved details.
   $('#clear').on('click', function(){
     clearCredentials().done(function(){
       $('#email, #password').val('').attr('disabled', false)
