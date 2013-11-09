@@ -9,8 +9,10 @@ chrome.tabs.query({
     type: "give me feeds"
   }, function(feeds){
     console.log('page_action.js: received feeds', feeds)
+    var $list = $('<div>').addClass('list-group')
     $.each(feeds, function(i, feed){
-      $('body').append('<a href="' + feed.url + '">' + feed.title + '</a>')
+      $list.append('<a class="list-group-item" href="' + feed.url + '">' + feed.title + '</a>')
     })
+    $list.appendTo('body')
   })
 })
