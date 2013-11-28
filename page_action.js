@@ -41,6 +41,7 @@ var showFeeds = function(feeds){
       $.each(feeds, function(i, feed){
         console.log(feed.url)
         var $a = $('<a class="list-group-item" href="' + feed.url + '">' + feed.title + '</a>')
+        $a.attr('title', 'Click to subscribe')
         $a.on('click', feedClick).appendTo('#feeds')
       })
 
@@ -51,9 +52,10 @@ var showFeeds = function(feeds){
         $('#feeds a').each(function(){
           var feed = $(this).attr('href')
           if(feed_urls.indexOf(feed) > -1){
-            var feed_id = _.findWhere(subscriptions, {feed_url: feed}).feed_id
+            var existing_feed = _.findWhere(subscriptions, {feed_url: feed})
             $(this).addClass('subscribed')
-            $(this).attr('data-feed-id', feed_id)
+            $(this).attr('data-feed-id', existing_feed.feed_id)
+            $(this).attr('title', 'Subscribed ' + moment(existing_feed.created_at).fromNow())
           }
         })
       }).fail(reportAJAXError)
@@ -98,6 +100,8 @@ var feedClick = function(e){
           $('#tags input[value="' + tag + '"]').attr('checked', true)
         })
       }).fail(reportAJAXError)
+    } else {
+      $a.attr('title', 'Subscribed a few seconds ago')
     }
 
   }).fail(reportAJAXError)
