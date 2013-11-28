@@ -1,6 +1,6 @@
 {
   "name": "Subscribe with Feedbin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifest_version": 2,
   "description": "Auto-detect and subscribe to RSS feeds with Feedbin",
   "homepage_url": "http://github.com/zarino/subscribe-with-feedbin",
