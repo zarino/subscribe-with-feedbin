@@ -51,7 +51,9 @@ var showFeeds = function(feeds){
         $('#feeds a').each(function(){
           var feed = $(this).attr('href')
           if(feed_urls.indexOf(feed) > -1){
+            var feed_id = _.findWhere(subscriptions, {feed_url: feed}).feed_id
             $(this).addClass('subscribed')
+            $(this).attr('data-feed-id', feed_id)
           }
         })
       }).fail(reportAJAXError)
@@ -73,6 +75,8 @@ var feedClick = function(e){
   var $a = $(this)
   var feedURL = $(this).attr('href')
   subscribeToFeed(feedURL, window.email, window.password).done(function(feedObject, jqXHR){
+
+    // Isolate the feed, and show the tags
     $a.addClass('subscribed solo').siblings().slideUp(100)
     $('#tags').slideDown(100)
     $('#tags input').on('change', function(e){
@@ -83,6 +87,19 @@ var feedClick = function(e){
         untagFeed(feedObject.feed_id, $(this).val()).fail(reportAJAXError)
       }
     })
+
+    // If the feed was already a subscription,
+    // find out what tags it had (if any)
+    if(typeof $a.attr('data-feed-id') !== 'undefined'){
+      console.log($a.attr('data-feed-id'))
+      getTagsForFeed($a.attr('data-feed-id')).done(function(tags){
+        console.log('tags for feed', tags)
+        _.each(tags, function(tag){
+          $('#tags input[value="' + tag + '"]').attr('checked', true)
+        })
+      }).fail(reportAJAXError)
+    }
+
   }).fail(reportAJAXError)
 }
 
@@ -110,8 +127,18 @@ var getTaggings = function(){
 // Get the given user's tags. Returns a jQuery Deferred promise.
 var getTags = function(){
   var dfd = $.Deferred()
-  getTaggings().done(function(data){
-    dfd.resolve(_.uniq(_.pluck(data, 'name')).sort())
+  getTaggings().done(function(taggings){
+    dfd.resolve(_.uniq(_.pluck(taggings, 'name')).sort())
+  }).fail(dfd.reject)
+  return dfd.promise()
+}
+
+// Get all tags applied to the given feed. Returns a jQuery Deferred promise.
+var getTagsForFeed = function(feed_id){
+  var dfd = $.Deferred()
+  getTaggings().done(function(taggings){
+    taggingsForThisFeed = _.where(taggings, {feed_id: parseInt(feed_id)})
+    dfd.resolve(_.uniq(_.pluck(taggingsForThisFeed, 'name')).sort())
   }).fail(dfd.reject)
   return dfd.promise()
 }
