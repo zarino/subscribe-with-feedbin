@@ -11,6 +11,21 @@
     .list-group {
       width: 200px;
       margin-bottom: 0;
+      font-size: 13px;
+      line-height: 17px;
+    }
+    .list-group-item {
+      padding: 6px 9px;
+    }
+    .list-group-item.subscribed,
+    .list-group-item.subscribed:hover {
+      border-color: #95CE75;
+      background-color: #EFFAEC;
+      color: #3C641C;
+      cursor: default;
+    }
+    .list-group-item.solo {
+      border-radius: 4px;
     }
     #login {
       display: block;
@@ -31,11 +46,34 @@
       margin-bottom: 15px;
       text-align: center;
     }
+    #ajax-error {
+      margin-top: 20px;
+      margin-bottom: 0;
+      cursor: help;
+    }
+    #tags {
+      display: none;
+      margin-top: 15px;
+    }
+    label.tag {
+      font-weight: normal;
+      display: block;
+      margin: 5px 0 0 0;
+      font-size: 12px;
+      line-height: 16px;
+      padding-left: 9px;
+    }
+    label.tag input {
+      margin-right: 3px;
+    }
     </style>
     <script src="jquery-2.0.3.min.js"></script>
     <script src="vendor/js/bootstrap.min.js"></script>
+    <script src="vendor/js/underscore.min.js"></script>
     <script src="page_action.js"></script>
   </head>
   <body>
+    <div id="feeds" class="list-group"></div>
+    <div id="tags"></div>
   </body>
 </html>
