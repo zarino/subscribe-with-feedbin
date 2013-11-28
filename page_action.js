@@ -39,7 +39,6 @@ var showFeeds = function(feeds){
       $('body').prepend('<a id="loggedin" target="_blank" href="' + optionsURL + '">Logged in as ' + window.email + '</a>')
 
       $.each(feeds, function(i, feed){
-        console.log(feed.url)
         var $a = $('<a class="list-group-item" href="' + feed.url + '">' + feed.title + '</a>')
         $a.attr('title', 'Click to subscribe')
         $a.on('click', feedClick).appendTo('#feeds')
@@ -93,9 +92,7 @@ var feedClick = function(e){
     // If the feed was already a subscription,
     // find out what tags it had (if any)
     if(typeof $a.attr('data-feed-id') !== 'undefined'){
-      console.log($a.attr('data-feed-id'))
       getTagsForFeed($a.attr('data-feed-id')).done(function(tags){
-        console.log('tags for feed', tags)
         _.each(tags, function(tag){
           $('#tags input[value="' + tag + '"]').attr('checked', true)
         })
