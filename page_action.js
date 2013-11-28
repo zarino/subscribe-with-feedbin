@@ -22,34 +22,54 @@ var showFeeds = function(feeds){
     window.email = email
     window.password = password
     if(window.email == null || window.password == null){
+
       if(feeds.length == 1){
         var message = 'Log into Feedbin to subscribe to this feed'
       } else {
         var message = 'Log into Feedbin to subscribe to these feeds'
       }
       $('body').prepend('<a id="login" class="btn-success" target="_blank" href="' + optionsURL + '">' + message + '</a>')
+
+      $.each(feeds, function(i, feed){
+        $('#feeds').append('<a class="list-group-item" href="' + feed.url + '">' + feed.title + '</a>')
+      })
+
     } else {
+
       $('body').prepend('<a id="loggedin" target="_blank" href="' + optionsURL + '">Logged in as ' + window.email + '</a>')
+
+      $.each(feeds, function(i, feed){
+        console.log(feed.url)
+        var $a = $('<a class="list-group-item" href="' + feed.url + '">' + feed.title + '</a>')
+        $a.on('click', feedClick).appendTo('#feeds')
+      })
+
+      // Lazily (ie: so we don't delay displaying the feed list)
+      // load current subscriptions and mark list items if subscribed
+      getSubscriptions().done(function(subscriptions){
+        var feed_urls = _.pluck(subscriptions, 'feed_url')
+        $('#feeds a').each(function(){
+          var feed = $(this).attr('href')
+          if(feed_urls.indexOf(feed) > -1){
+            $(this).addClass('subscribed')
+          }
+        })
+      }).fail(reportAJAXError)
+
+      // Pre-load tags, to make displaying the tag list
+      // after new subscriptions quicker
       getTags(window.email, window.password).done(function(tags){
         _.each(tags, function(tag){
           $('#tags').append('<label class="tag"><input type="checkbox" value="' + tag + '"> ' + tag + '</label>')
         })
       }).fail(reportAJAXError)
+
     }
-    $.each(feeds, function(i, feed){
-      var $a = $('<a class="list-group-item" href="' + feed.url + '">' + feed.title + '</a>')
-      $a.on('click', feedClick).appendTo('#feeds')
-    })
   })
 }
 
 var feedClick = function(e){
   e.preventDefault()
-  if(window.email == null || window.password == null){
-    // No login details! Send them to the options screen.
-    $('#login').trigger('click')
-    return false
-  }
   var $a = $(this)
   var feedURL = $(this).attr('href')
   subscribeToFeed(feedURL, window.email, window.password).done(function(feedObject, jqXHR){
@@ -130,6 +150,15 @@ var untagFeed = function(feed_id, tag){
     }
   }).fail(dfd.reject)
   return dfd.promise()
+}
+
+var getSubscriptions = function(){
+  return $.ajax({
+    type: 'GET',
+    url: 'https://api.feedbin.me/v2/subscriptions.json',
+    username: window.email,
+    password: window.password
+  })
 }
 
 // Useful for reporting the error returned by subscribeToFeed()
