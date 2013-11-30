@@ -10,7 +10,7 @@
     "128": "icons/icon128.png"
   },
   "background": {
-    "scripts": [ "background.js" ],
+    "scripts": [ "jquery-2.0.3.min.js", "async-0.2.7.min.js", "background.js" ],
     "persistent": false
   },
   "options_page": "options.html",
