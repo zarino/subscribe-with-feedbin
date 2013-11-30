@@ -54,6 +54,8 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse){
       console.log('background.js: sending improved feeds back to tab ' + sender.tab.id + '...')
       sendImprovedFeeds(sender.tab.id, feeds)
     }).fail(function(feeds){
+      // This is currently never executed, because
+      // getBetterTitles() *always* returns a list of feeds
       console.log('background.js: couldn\'t get better titles.')
       console.log('background.js: showing pageAction icon...')
       showPageAction(sender.tab.id, feeds)
