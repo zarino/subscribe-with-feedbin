@@ -22,6 +22,10 @@
       border-color: #95CE75;
       background-color: #EFFAEC;
       color: #3C641C;
+      margin-bottom: 0; /* override bootstrap default to reveal bottom border */
+    }
+    .list-group-item.subscribed + .list-group-item {
+      border-top: 0; /* suppress border, now the previous item's one is visible */
     }
     .list-group-item.subscribed:hover {
       background-color: #D8F0D1;
