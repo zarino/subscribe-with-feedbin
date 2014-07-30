@@ -40,7 +40,7 @@ var showFeeds = function(feeds){
 
       $.each(feeds, function(i, feed){
         var $a = $('<a class="list-group-item" href="' + feed.url + '">' + feed.title + '</a>')
-        $a.attr('title', 'Click to subscribe')
+        $a.attr('title', feed.url)
         $a.on('click', feedClick).appendTo('#feeds')
       })
 
