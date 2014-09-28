@@ -72,6 +72,12 @@ var showFeeds = function(feeds){
 }
 
 var feedClick = function(e){
+  if(e.metaKey){
+    // The user wants to open the feed URL in a new window.
+    // Bail out early, and let the browser follow the link.
+    return true;
+  }
+
   e.preventDefault()
   var $a = $(this)
   var feedURL = $(this).attr('href')
