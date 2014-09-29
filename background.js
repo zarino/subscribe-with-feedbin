@@ -33,7 +33,7 @@ var perseFeed = function(feed, callback){
     }
 
     // Find out how often the feed is updated
-    var $pubDates = $(xml).find('pubDate')
+    var $pubDates = $(xml).find('item > pubDate, entry > updated')
     var timestamps = []
     var prevTimestamp = null
     var intervals = []
