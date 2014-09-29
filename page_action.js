@@ -39,8 +39,38 @@ var showFeeds = function(feeds){
       $('body').prepend('<a id="loggedin" target="_blank" href="' + optionsURL + '">Logged in as ' + window.email + '</a>')
 
       $.each(feeds, function(i, feed){
-        var $a = $('<a class="list-group-item" href="' + feed.url + '">' + feed.title + '</a>')
-        $a.attr('title', feed.url)
+        var $a = $('<a class="list-group-item">')
+        $a.attr({
+          title: feed.url,
+          href: feed.url
+        })
+        $a.append('<strong>' + feed.title + '</strong>')
+        if(feed.frequency){
+          var intervalInMinutes = Math.round(feed.frequency/60)
+          var intervalInHours = Math.round(feed.frequency/60/60)
+          var intervalInDays = Math.round(feed.frequency/60/60/24)
+          var intervalInWeeks = Math.round(feed.frequency/60/60/24/7)
+          if(intervalInMinutes == 1){
+            var updated = 'roughly every minute'
+          } else if(intervalInMinutes < 55){
+            var updated = 'every ' + intervalInMinutes + ' minutes'
+          } else if(intervalInHours == 1){
+            var updated = 'roughly every hour'
+          } else if(intervalInHours < 23){
+            var updated = 'every ' + intervalInHours + ' hours'
+          } else if(intervalInDays == 1){
+            var updated = 'daily'
+          } else if(intervalInDays < 7){
+            var updated = 'every ' + intervalInDays + ' days'
+          } else if(intervalInWeeks == 1){
+            var updated = 'weekly'
+          } else if(intervalInWeeks < 11){
+            var updated = 'every ' + intervalInWeeks + ' weeks'
+          } else {
+            var updated = 'every ' + Math.round(intervalInWeeks/4.3) + ' months'
+          }
+          $a.append('<span class="updated">Updated ' + updated + '</span>')
+        }
         $a.on('click', feedClick).appendTo('#feeds')
       })
 
