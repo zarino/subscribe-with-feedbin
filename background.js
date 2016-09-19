@@ -76,19 +76,19 @@ var sendImprovedFeeds = function(tab_id, feeds){
 
 chrome.extension.onMessage.addListener(function(message, sender, sendResponse){
   if(message.type == "found feeds"){
-    console.log('background.js: received "found feeds" message.')
-    console.log('background.js: getting better titles for feeds...')
+    // console.log('background.js: received "found feeds" message.')
+    // console.log('background.js: getting better titles for feeds...')
     parseFeeds(message.feeds).done(function(betterFeeds){
-      console.log('background.js: parseFeeds completed successfully.')
-      console.log('background.js: showing pageAction icon...')
+      // console.log('background.js: parseFeeds completed successfully.')
+      // console.log('background.js: showing pageAction icon...')
       showPageAction(sender.tab.id, betterFeeds)
-      console.log('background.js: sending improved feeds back to tab ' + sender.tab.id + '...')
+      // console.log('background.js: sending improved feeds back to tab ' + sender.tab.id + '...')
       sendImprovedFeeds(sender.tab.id, betterFeeds)
     }).fail(function(feeds){
       // This is currently never executed, because
       // parseFeeds() *always* returns a list of feeds
-      console.log('background.js: parseFeeds failed.')
-      console.log('background.js: showing pageAction icon...')
+      // console.log('background.js: parseFeeds failed.')
+      // console.log('background.js: showing pageAction icon...')
       showPageAction(sender.tab.id, feeds)
     })
   }

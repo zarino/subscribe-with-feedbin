@@ -228,7 +228,7 @@ var getSubscriptions = function(){
 // Useful for reporting the error returned by subscribeToFeed()
 var reportAJAXError = function(jqXHR, textStatus, errorThrown){
   $('body').append('<p id="ajax-error" class="text-danger text-center" title="' + jqXHR.responseJSON.message.replace(/"/g, '&quot;') + '"><strong>Oh no!</strong> ' + jqXHR.status + ' ' + textStatus + '</p>')
-  console.log(jqXHR, textStatus, errorThrown)
+  // console.log(jqXHR, textStatus, errorThrown)
 }
 
 chrome.tabs.query({

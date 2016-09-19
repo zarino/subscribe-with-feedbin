@@ -11,8 +11,8 @@ if(feedNodes.length){
     })
   }
 
-  console.log('inject.js: found feeds')
-  console.log('inject.js: sending "found feeds" message')
+  // console.log('inject.js: found feeds')
+  // console.log('inject.js: sending "found feeds" message')
 
   // Send feeds to `background.js` which will
   // make ajax requests to get better feed titles,
@@ -28,12 +28,12 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse){
   // Listen for messages from `background.js` returning
   // the modified (ie: with better titles) list of feeds
   if(message.type == "improved feeds"){
-    console.log('inject.js: received "improved feeds" message. Storing improved feeds...')
+    // console.log('inject.js: received "improved feeds" message. Storing improved feeds...')
     feeds = message.feeds
   }
   // Listen for messages from `page_action.html` asking for the list of feeds
   if(message.type == "give me feeds"){
-    console.log('inject.js: received "give me feeds" message. Sending feeds...')
+    // console.log('inject.js: received "give me feeds" message. Sending feeds...')
     sendResponse(feeds)
   }
 })

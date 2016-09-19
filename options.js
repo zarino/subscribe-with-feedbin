@@ -10,10 +10,10 @@ var verifyCredentials = function(email, password){
     contentType: 'application/json; charset=utf-8'
   }
   $.ajax(options).done(function(data){
-    console.log(data)
+    // console.log(data)
     dfd.resolve()
   }).fail(function(jqXHR, textStatus, errorThrown){
-    console.log(jqXHR, textStatus, errorThrown)
+    // console.log(jqXHR, textStatus, errorThrown)
     dfd.reject()
   })
   return dfd.promise()
