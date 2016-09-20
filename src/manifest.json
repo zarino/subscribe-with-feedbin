@@ -11,7 +11,11 @@
     "128": "icons/icon128.png"
   },
   "background": {
-    "scripts": [ "vendor/js/jquery-3.1.0.min.js", "vendor/js/async-0.2.7.min.js", "background.js" ],
+    "scripts": [
+      "vendor/js/jquery-3.1.0.min.js",
+      "vendor/js/async-0.2.7.min.js",
+      "background.js"
+    ],
     "persistent": false
   },
   "options_page": "options.html",
@@ -20,9 +24,21 @@
     "default_title": "Subscribe to feeds",
     "default_popup": "page_action.html"
   },
-  "permissions": [ "tabs", "https://*/*", "http://*/*", "storage" ],
-  "content_scripts": [{
-    "matches": [ "http://*/*", "https://*/*" ],
-    "js": [ "inject.js" ]
-  }]
+  "permissions": [
+    "tabs",
+    "https://*/*",
+    "http://*/*",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "inject.js"
+      ]
+    }
+  ]
 }

@@ -8,12 +8,24 @@ Download a copy of the `subscribe-with-feedbin.crx` file, from inside the `dist`
 
 ## How to modify and repackage the extension
 
-Make your changes, remembering to increment the version number in `package.json` and `src/manifest.json` once you’re happy. Then:
+Make your changes, then increment the version number, substituting the number after `--` with the new version you want to change to:
 
     npm install
+    npm run version -- 0.1.2
+
+Then, with the new version number in place, build the `.crx` and `.zip` packages:
+
     npm run build
 
 You will need an SSL Private Key at `key.pm` in the repo root directory.
+
+You will probably want to commit that change and create a new git tag to match the version number:
+
+    git commit -a
+    git tag -a v0.1.2
+    git push --tags
+
+The `.crx` package can be installed directly into Chrome. The `.zip` package can be uploaded to your Chrome Web Store Developer Dashboard.
 
 ## How it works
 
