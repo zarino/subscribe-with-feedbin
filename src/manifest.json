@@ -1,5 +1,6 @@
 {
   "name": "Subscribe with Feedbin",
+  "short_name": "sub-feedbin",
   "version": "1.0.3",
   "manifest_version": 2,
   "description": "Auto-detect and subscribe to RSS feeds with Feedbin",

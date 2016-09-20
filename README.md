@@ -13,6 +13,8 @@ Make your changes, remembering to increment the version number in `package.json`
     npm install
     npm run build
 
+You will need an SSL Private Key at `key.pm` in the repo root directory.
+
 ## How it works
 
 `inject.js` is run on every page load, and detects whether there are any `application/rss+xml` or `application/atom+xml` links on the page. If it finds any, it notifies `background.js`, which shows the toolbar icon for that page.

@@ -1,2 +1,3 @@
 node_modules
-src/key.pem
+key.pem
+artwork
