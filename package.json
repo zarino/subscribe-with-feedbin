@@ -9,8 +9,8 @@
     "url": "git://github.com/zarino/subscribe-with-feedbin.git"
   },
   "scripts": {
-    "build": "./build.sh",
-    "version": "./version.js"
+    "build": "./script/build.sh",
+    "version": "./script/version.js"
   },
   "dependencies": {
     "crx": "3.0.3"
