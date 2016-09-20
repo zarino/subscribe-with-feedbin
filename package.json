@@ -2,7 +2,7 @@
   "author": "Zarino Zappia",
   "name": "subscribe-with-feedbin",
   "description": "Auto-detect and subscribe to RSS feeds with Feedbin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "homepage": "http://github.com/zarino/subscribe-with-feedbin",
   "repository": {
     "type": "git",
