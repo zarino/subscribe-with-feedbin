@@ -2,6 +2,17 @@
 
 A Chrome extension for auto-detecting and subscribing to RSS feeds with Feedbin.
 
+## How to install this Chrome extension
+
+Download a copy of the `subscribe-with-feedbin.crx` file, from inside the `dist` directory. Drag and drop the `subscribe-with-feedbin.crx` file onto the `chrome://extensions` window.
+
+## How to modify and repackage the extension
+
+Make your changes, remembering to increment the version number in `package.json` and `src/manifest.json` once you’re happy. Then:
+
+    npm install
+    npm run build
+
 ## How it works
 
 `inject.js` is run on every page load, and detects whether there are any `application/rss+xml` or `application/atom+xml` links on the page. If it finds any, it notifies `background.js`, which shows the toolbar icon for that page.
